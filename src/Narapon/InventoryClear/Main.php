@@ -25,20 +25,19 @@ class Main extends PluginBase {
                         if($player) {
                             $player->getInventory()->clearAll();
                             $playername = $player->getName();
-                            $last_letter = substr($playername, -1);
-                            if($last_letter === "s" || $last_letter === "z" || $last_letter === "x") {
-                                $sender->sendMessage("§a【運営】 §e " . $player->getDisplayName() . " のインベントリを削除しました");
-                            } else {
-                                $sender->sendMessage("§a【運営】 §e " . $player->getDisplayName() . " のインベントリを削除しました");
-                            }
+                            $sender->sendMessage("§a【運営】 §e " . $player->getDisplayName() . " のインベントリを削除しました");
                         } else {
                              $sender->sendMessage("§a【運営】 §e指定したプレイヤーはいません");
                         }
                     }
                 } else {
-                    if($sender->hasPermission("clearinventory.own")) {
-                        $sender->getInventory()->clearAll();
-                        $sender->sendMessage("§a【運営】 §eあなたのインベントリを削除しました");
+                    if($sender instanceof Player){
+                        if($sender->hasPermission("clearinventory.own")) {
+                            $sender->getInventory()->clearAll();
+                            $sender->sendMessage("§a【運営】 §eあなたのインベントリを削除しました");
+                        }
+                    }else{
+                            $sender->sendMessage("§a【運営】 §eサーバー内で実行するか、プレイヤーを指定してください");
                     }
                 }
                 break;
